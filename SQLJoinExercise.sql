@@ -31,7 +31,7 @@ WHERE categories.name = 'Appliances' OR categories.name = 'Games';
 /* joins: find the product name, total # sold, and total price sold,
  for Eagles: Hotel California --You may need to use SUM() */
  
-SELECT products.name, SUM(sales.Quantity) AS 'Total sold', SUM(sales.PricePerUnit) AS 'Total Price Sold' From products
+SELECT products.name, SUM(sales.Quantity) AS 'Total sold', SUM(sales.PricePerUnit * quantity) AS 'Total Price Sold' From products
 INNER JOIN sales
 ON products.ProductID = sales.ProductID
 WHERE products.name = 'Eagles: Hotel California';
@@ -53,9 +53,12 @@ This query should return:
 -  the name of each product
 -  and how many of that product they sold */
 
-SELECT employees.EmployeeID, employees.FirstName, employees.LastName, products.name, sales.Quantity FROM employees
+SELECT employees.EmployeeID, employees.FirstName, employees.LastName, products.name, sales.Quantity, sales.PricePerUnit FROM employees
 INNER JOIN sales
 ON employees.EmployeeID = sales.EmployeeID
 INNER JOIN products
 ON sales.ProductID = products.ProductID
 ORDER BY employees.EmployeeID;
+
+SELECT * FROM products
+Where products.name = 'Eagles: Hotel California';
